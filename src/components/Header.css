@@ -1,0 +1,35 @@
+/* Coffee Theme for Header */
+.header {
+  background-color: #4b2e2e; /* dark coffee */
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  color: #ffe0b2; /* light beige */
+}
+
+.header nav {
+  margin-top: 10px;
+}
+
+.header nav a,
+.header nav button {
+  color: #ffe0b2;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header nav a:hover,
+.header nav button:hover {
+  color: #ffcc80; /* lighter coffee hover */
+}
