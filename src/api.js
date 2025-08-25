@@ -1,6 +1,9 @@
+
+
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api";
+// Use environment variable for backend URL
+const API_URL = `${process.env.REACT_APP_API_URL}/api`;
 
 // =================== Recipes ===================
 
@@ -26,7 +29,6 @@ export const createRecipe = async (formData, token) => {
   });
   return res.data;
 };
-
 
 // Post comment
 export const postComment = async (recipeId, text, token) => {
@@ -59,4 +61,3 @@ export const signup = async (user) => {
   const res = await axios.post(`${API_URL}/auth/signup`, user);
   return res.data;
 };
-
