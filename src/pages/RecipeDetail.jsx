@@ -40,13 +40,14 @@ export default function RecipeDetail() {
 
   if (!recipe) return <p>Loading...</p>;
 
-  // ✅ Only show DB image if available
-  const imageSrc =
-    recipe?.imageUrl && recipe.imageUrl.startsWith("http")
-      ? recipe.imageUrl
-      : recipe?.imageUrl
-      ? `${process.env.REACT_APP_API_URL}${recipe.imageUrl}`
-      : null;
+  // ✅ Handle both DB and dummy recipe images
+  const imageSrc = recipe?.image
+    ? recipe.image // dummy recipe image
+    : recipe?.imageUrl && recipe.imageUrl.startsWith("http")
+    ? recipe.imageUrl // full backend URL
+    : recipe?.imageUrl
+    ? `${process.env.REACT_APP_API_URL}${recipe.imageUrl}` // relative backend URL
+    : "https://placehold.co/400x300?text=No+Image"; // fallback
 
   return (
     <div className="container">
@@ -55,10 +56,14 @@ export default function RecipeDetail() {
       {imageSrc && (
         <img
           src={imageSrc}
-          alt={recipe.title}
+          alt={recipe?.title || "Recipe"}
           width="400"
           height="300"
           style={{ borderRadius: "10px", objectFit: "cover" }}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "https://placehold.co/400x300?text=No+Image";
+          }}
         />
       )}
 
