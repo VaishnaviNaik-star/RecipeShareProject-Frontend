@@ -1,3 +1,5 @@
+
+
 // src/pages/RecipeDetail.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -43,11 +45,12 @@ export default function RecipeDetail() {
   return (
     <div className="container">
       <h2>{recipe.title}</h2>
-      <img
-  src={`http://localhost:5000${recipe.imageUrl}`}
+     <img
+  src={`${process.env.REACT_APP_API_URL}${recipe.imageUrl}`}
   alt={recipe.title}
   onError={(e) => (e.target.src = "https://source.unsplash.com/400x300/?food")}
 />
+
 
 
       <p className="desc">{recipe.description}</p>
