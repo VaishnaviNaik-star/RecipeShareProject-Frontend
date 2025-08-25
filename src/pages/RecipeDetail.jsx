@@ -1,5 +1,3 @@
-
-
 // src/pages/RecipeDetail.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -48,7 +46,12 @@ export default function RecipeDetail() {
      <img
   src={`${process.env.REACT_APP_API_URL}${recipe.imageUrl}`}
   alt={recipe.title}
-  onError={(e) => (e.target.src = "https://source.unsplash.com/400x300/?food")}
+  width="400"
+  height="300"
+  onError={(e) => {
+    e.target.onerror = null; // prevent infinite loop
+    e.target.src = "https://picsum.photos/400/300?random=1"; // ✅ safe fallback
+  }}
 />
 
 
@@ -127,4 +130,6 @@ export default function RecipeDetail() {
     </div>
   );
 }
+
+
 
