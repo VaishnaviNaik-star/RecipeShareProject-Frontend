@@ -40,21 +40,27 @@ export default function RecipeDetail() {
 
   if (!recipe) return <p>Loading...</p>;
 
+  // ✅ Only show DB image if available
+  const imageSrc =
+    recipe?.imageUrl && recipe.imageUrl.startsWith("http")
+      ? recipe.imageUrl
+      : recipe?.imageUrl
+      ? `${process.env.REACT_APP_API_URL}${recipe.imageUrl}`
+      : null;
+
   return (
     <div className="container">
       <h2>{recipe.title}</h2>
-     <img
-  src={`${process.env.REACT_APP_API_URL}${recipe.imageUrl}`}
-  alt={recipe.title}
-  width="400"
-  height="300"
-  onError={(e) => {
-    e.target.onerror = null; // prevent infinite loop
-    e.target.src = "https://picsum.photos/400/300?random=1"; // ✅ safe fallback
-  }}
-/>
 
-
+      {imageSrc && (
+        <img
+          src={imageSrc}
+          alt={recipe.title}
+          width="400"
+          height="300"
+          style={{ borderRadius: "10px", objectFit: "cover" }}
+        />
+      )}
 
       <p className="desc">{recipe.description}</p>
 
@@ -130,6 +136,7 @@ export default function RecipeDetail() {
     </div>
   );
 }
+
 
 
 
