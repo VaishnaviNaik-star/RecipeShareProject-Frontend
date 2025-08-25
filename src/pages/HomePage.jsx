@@ -62,22 +62,27 @@ export default function HomePage() {
       ? dummyRecipes
       : dummyRecipes.filter((r) => r.category === dummyCategory);
 
-  useEffect(() => {
+ useEffect(() => {
   const fetchRecipes = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes`); // ✅ include /api
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000"; // ✅ fallback for dev
+      const res = await fetch(`${API_URL}/api/recipes`);
+
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
       const data = await res.json();
       setRecipes(data);
-      setLoading(false);
     } catch (err) {
       console.error("Fetch error:", err);
       setError("Failed to load recipes. Check console for details.");
+    } finally {
       setLoading(false);
     }
   };
+
   fetchRecipes();
 }, []);
+
 
 
   return (
@@ -115,4 +120,5 @@ export default function HomePage() {
     </div>
   );
 }
+
 
