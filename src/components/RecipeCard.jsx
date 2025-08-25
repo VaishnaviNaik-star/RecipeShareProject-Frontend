@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -7,7 +8,7 @@ export default function RecipeCard({ recipe }) {
     recipe?.imageUrl // uploaded recipes
       ? recipe.imageUrl.startsWith("http") // full URL
         ? recipe.imageUrl
-        : `http://localhost:5000${recipe.imageUrl}`
+        : `${process.env.REACT_APP_API_URL}${recipe.imageUrl}` // use backend URL from env
       : recipe?.image // seeded recipes
       ? recipe.image
       : "https://source.unsplash.com/400x300/?food"; // fallback
