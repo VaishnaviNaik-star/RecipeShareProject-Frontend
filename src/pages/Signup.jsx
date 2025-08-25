@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,11 +14,10 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", {
-        name,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/signup`,
+        { name, email, password }
+      );
       console.log(res.data);
       navigate("/"); // redirect on success
     } catch (err) {
