@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -11,7 +10,7 @@ export default function RecipeCard({ recipe }) {
         : `${process.env.REACT_APP_API_URL}${recipe.imageUrl}` // use backend URL from env
       : recipe?.image // seeded recipes
       ? recipe.image
-      : "https://source.unsplash.com/400x300/?food"; // fallback
+      : "https://picsum.photos/400/300?random=1"; // safe fallback (was Unsplash)
 
   return (
     <div className="recipe-card" style={{ border: "1px solid #ccc", padding: "10px", margin: "10px" }}>
@@ -19,6 +18,10 @@ export default function RecipeCard({ recipe }) {
         src={imageSrc}
         alt={recipe?.title || "Recipe Image"}
         style={{ width: "200px", height: "200px", objectFit: "cover", borderRadius: "8px" }}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = "https://placehold.co/200x200?text=No+Image";
+        }}
       />
       <h3>{recipe.title}</h3>
       <Link to={`/recipe/${recipe._id}`} className="view-btn">
@@ -27,3 +30,4 @@ export default function RecipeCard({ recipe }) {
     </div>
   );
 }
+
